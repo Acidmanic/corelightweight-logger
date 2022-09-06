@@ -20,9 +20,9 @@
         <Description>A Simple Lightweight implementation adapter and console implementation for Microsoft.Extensions.Logging.ILogger. </Description>
         <Summary>Create an Instance of ConsoleLogger, or extend LoggerAdapter to implement your own Logger.</Summary>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-        <RepositoryUrl>https://github.com/Acidmanic/lightweight-logger</RepositoryUrl>
+        <RepositoryUrl>https://github.com/Acidmanic/corelightweight-logger</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
-        <PackageProjectUrl>https://github.com/Acidmanic/lightweight-logger</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/Acidmanic/corelightweight-logger</PackageProjectUrl>
         <Title>Lightweight ILogger Implementation/Adapter</Title>
 
     </PropertyGroup>

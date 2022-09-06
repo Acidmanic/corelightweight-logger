@@ -6,7 +6,16 @@ namespace Microsoft.Extensions.Logging.LightWeight.Tdd
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+           var logger = new ConsoleLogger().EnableAll();
+            
+            logger.LogInformation("LogInformation");
+            logger.LogError("LogError");
+            logger.LogDebug("LogDebug");
+            logger.LogCritical("LogCritical");
+            logger.LogTrace("LogTrace");
+            logger.LogWarning("LogWarning");
+            
+            
         }
     }
 }

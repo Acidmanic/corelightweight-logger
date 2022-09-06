@@ -11,8 +11,8 @@
 
     <PropertyGroup>
         <!-- NuGet -->
-        <Id>Microsoft.Extensions.Logging.LightWeight</Id>
-        <PackageId>Microsoft.Extensions.Logging.LightWeight</PackageId>
+        <Id>Acidmanic.MSLogging.LightWeight</Id>
+        <PackageId>Acidmanic.MSLogging.LightWeight</PackageId>
         <Version>1.0.0</Version>
         <Authors>Mani Moayedi</Authors>
         <Company>Acidmanic</Company>

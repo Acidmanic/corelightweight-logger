@@ -6,16 +6,20 @@ namespace Microsoft.Extensions.Logging.LightWeight
     public class LoggerAdapter : ILogger
     {
         private readonly Dictionary<LogLevel, bool> _enabledLevels;
-        private readonly Dictionary<LogLevel, Action<string>> _actionsByLevel;
+        private readonly Dictionary<LogLevel, Action<LogLevel, string>> _actionsByLevel;
 
-        public LoggerAdapter(Action<string> logAction) : this(logAction, logAction, logAction)
+        public LoggerAdapter(Action<string> logAction) : this((lname, msg) => logAction(lname.ToString() + ": " + msg))
+        {
+        }
+
+        public LoggerAdapter(Action<LogLevel, string> logAction) : this(logAction, logAction, logAction)
         {
         }
 
         public LoggerAdapter(
-            Action<string> goodLogAction,
-            Action<string> badLogAction,
-            Action<string> defaultLogAction) : this(
+            Action<LogLevel, string> goodLogAction,
+            Action<LogLevel, string> badLogAction,
+            Action<LogLevel, string> defaultLogAction) : this(
             goodLogAction,
             badLogAction,
             defaultLogAction,
@@ -24,12 +28,12 @@ namespace Microsoft.Extensions.Logging.LightWeight
         }
 
         public LoggerAdapter(
-            Action<string> goodLogAction,
-            Action<string> badLogAction,
-            Action<string> uglyAction,
-            Action<string> defaultLogAction)
+            Action<LogLevel, string> goodLogAction,
+            Action<LogLevel, string> badLogAction,
+            Action<LogLevel, string> uglyAction,
+            Action<LogLevel, string> defaultLogAction)
         {
-            _actionsByLevel = new Dictionary<LogLevel, Action<string>>();
+            _actionsByLevel = new Dictionary<LogLevel, Action<LogLevel, string>>();
 
             _actionsByLevel.Add(LogLevel.Critical, badLogAction);
             _actionsByLevel.Add(LogLevel.Debug, defaultLogAction);
@@ -56,11 +60,9 @@ namespace Microsoft.Extensions.Logging.LightWeight
         {
             if (_enabledLevels[logLevel])
             {
-                var message = logLevel.ToString();
+                var message = formatter(state, exception);
 
-                message += ": " + formatter(state, exception);
-
-                _actionsByLevel[logLevel](message);
+                _actionsByLevel[logLevel](logLevel, message);
             }
         }
 
@@ -108,7 +110,7 @@ namespace Microsoft.Extensions.Logging.LightWeight
         public LoggerAdapter EnableAll()
         {
             Enable(true);
-            
+
             return this;
         }
 
